@@ -67,10 +67,10 @@ int main(int argc, char* argv[]) {
     std::cout<<"Done4"<<endl;
     int max_idx=0;
     float max_out = outputs[0].matrix<float>()(0,0);
-    std::cout << "Output 0: " <<  idx_out << std::endl;
+    std::cout << "Output 0: " <<  max_out << std::endl;
     for (int idx=1;idx<10;idx++){
         float idx_out = outputs[0].matrix<float>()(0,idx);
-        std::cout << "Output "<<i<<": " <<  idx_out << std::endl;
+        std::cout << "Output "<<idx<<": " <<  idx_out << std::endl;
         if (idx_out>max_out){
             max_out=idx_out;
             max_idx=idx;
