@@ -64,10 +64,20 @@ int main(int argc, char* argv[]) {
     //std::copy_n(X_vec.begin(), X_vec.size(), _XTensor.flat<float>().data());
     //_YTensor.setRandom();
     std::cout<<"Done3"<<endl;
-    TF_CHECK_OK(session->Run({{"x", x}/*, {"y", y}*/}, {"dense_2_out"}, {}, &outputs)); // Get cost
+    TF_CHECK_OK(session->Run({{"x", x}/*, {"y", y}*/}, {"dense_2_out"}, {}, &outputs)); // Get output
     std::cout<<"Done4"<<endl;
-    float cost = outputs[0].matrix<float>()(0,0);
-    std::cout << "Output: " <<  cost << std::endl;
+    int max_idx=0;
+    float max_out = outputs[0].matrix<float>()(0,0);
+    std::cout << "Output 0: " <<  idx_out << std::endl;
+    for (int idx=1;idx<10;idx++){
+        float idx_out = outputs[0].matrix<float>()(0,idx);
+        std::cout << "Output "<<i<<": " <<  idx_out << std::endl;
+        if (idx_out>max_out){
+            max_out=idx_out;
+            max_idx=idx;
+        }
+    }
+    std::cout<<"The digit is: "<<max_idx<<endl;
     //TF_CHECK_OK(session->Run({{"x", x}, {"y", y}}, {}, {"train"}, nullptr)); // Train
     outputs.clear();
     
