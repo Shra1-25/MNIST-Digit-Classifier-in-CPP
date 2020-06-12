@@ -7,8 +7,7 @@
 using namespace tensorflow;
 using namespace std;
 
-int main(int argc, char* argv[]) {
-    std::cout<<"Welcome to the digit classifier."<<endl;    
+int main(int argc, char* argv[]) { 
     
     std::string graph_definition = "tf_1_graph.pb";
     Session* session;
@@ -27,15 +26,17 @@ int main(int argc, char* argv[]) {
 
     // Load graph into session
     TF_CHECK_OK(session->Create(graph_def));
-    std::cout<<"Done1"<<endl;
+   
     // Initialize our variables
     //TF_CHECK_OK(session->Run({}, {}, {"init_all_vars_op"}, nullptr));
-    std::cout<<"Done2"<<endl;
+    
     Tensor tmp(DT_FLOAT, TensorShape({28, 28}));
     
     auto _XTensor = tmp.matrix<float>();
-    
-    std::ifstream  data("input_data0.csv");
+    std::cout<<endl<<"Welcome to the digit classifier."<<endl<<"Please enter the csv filename to predict."<<endl;
+    std::string file_name;
+    cin>>file_name;
+    std::ifstream  data(file_name);
     std::string line;
     int i_idx=0;
     while(std::getline(data,line))
@@ -62,15 +63,15 @@ int main(int argc, char* argv[]) {
       std::cout<<"Reshape not successfull."<<endl;
     }
     //std::copy_n(X_vec.begin(), X_vec.size(), _XTensor.flat<float>().data());
-    std::cout<<"Done3"<<endl;
+   
     TF_CHECK_OK(session->Run({{"x", x}/*, {"y", y}*/}, {"dense_2_out"}, {}, &outputs)); // Get output
-    std::cout<<"Done4"<<endl;
+    
     int max_idx=0;
     float max_out = outputs[0].matrix<float>()(0,0);
     std::cout << "Output 0: " <<  max_out << std::endl;
     for (int idx=1;idx<10;idx++){
         float idx_out = outputs[0].matrix<float>()(0,idx);
-        std::cout << "Output "<<idx<<": " <<  idx_out << std::endl;
+        //std::cout << "Output "<<idx<<": " <<  idx_out << std::endl;
         if (idx_out>max_out){
             max_out=idx_out;
             max_idx=idx;
@@ -83,6 +84,6 @@ int main(int argc, char* argv[]) {
 
     session->Close();
     delete session;
-    std::cout<<"All done"<<endl;
+    
     return 0;
 }
