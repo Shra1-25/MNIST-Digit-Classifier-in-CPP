@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
         //X_vec.push_back(parsedRow);
         i_idx++;
     }
-    std::cout<<"Reading input data done."<<endl;
+    std::cout<<"Reading input data file done."<<endl;
     
     //_XTensor.setRandom();
     Tensor x(DT_FLOAT, TensorShape({1, 28, 28, 1}));
@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
     
     int max_idx=0;
     float max_out = outputs[0].matrix<float>()(0,0);
-    std::cout << "Output 0: " <<  max_out << std::endl;
+    //std::cout << "Output 0: " <<  max_out << std::endl;
     for (int idx=1;idx<10;idx++){
         float idx_out = outputs[0].matrix<float>()(0,idx);
         //std::cout << "Output "<<idx<<": " <<  idx_out << std::endl;
