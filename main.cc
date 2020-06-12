@@ -8,7 +8,7 @@ using namespace tensorflow;
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    std::cout<<"Hello"<<endl;    
+    std::cout<<"Welcome to the digit classifier."<<endl;    
     
     std::string graph_definition = "tf_1_graph.pb";
     Session* session;
@@ -33,13 +33,9 @@ int main(int argc, char* argv[]) {
     std::cout<<"Done2"<<endl;
     Tensor tmp(DT_FLOAT, TensorShape({28, 28}));
     
-    //Tensor x(DT_FLOAT, TensorShape({100, 32}));
-    //Tensor y(DT_FLOAT, TensorShape({100, 8}));
-    //std::copy_n(X_vec.begin(), X_vec.size(), x.flat<float>().data());
     auto _XTensor = tmp.matrix<float>();
-    //auto _YTensor = y.matrix<float>();
     
-    /*std::ifstream  data("X_data.csv");
+    std::ifstream  data("input_data0.csv");
     std::string line;
     int i_idx=0;
     while(std::getline(data,line))
@@ -58,28 +54,9 @@ int main(int argc, char* argv[]) {
         //X_vec.push_back(parsedRow);
         i_idx++;
     }
-    std::cout<<"Reading X_data done."<<endl;
+    std::cout<<"Reading input data done."<<endl;
     
-    std::ifstream  data2("Y_data.csv");
-    //std::string line;
-    i_idx=0;
-    while(std::getline(data2,line))
-    {
-        std::stringstream lineStream(line);
-        std::string cell;
-        //std::vector<float> parsedRow;
-        int j_idx=0;
-        
-        while(std::getline(lineStream,cell,','))
-        {
-            _YTensor(i_idx,j_idx)=std::stof(cell);
-            //parsedRow.push_back(std::stof(cell));
-            j_idx++;
-        }
-        //X_vec.push_back(parsedRow);
-        i_idx++;
-    }*/
-    _XTensor.setRandom();
+    //_XTensor.setRandom();
     Tensor x(DT_FLOAT, TensorShape({1, 28, 28, 1}));
     if(!x.CopyFrom(tmp, TensorShape({1, 28, 28, 1}))){
       std::cout<<"Reshape not successfull."<<endl;
